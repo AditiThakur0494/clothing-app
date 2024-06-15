@@ -1,32 +1,42 @@
-import { doc } from "firebase/firestore";
+//import { doc } from "firebase/firestore";
 import SignUpForm from "../../components/sign-up-form/sign-up.component";
+//import { useEffect } from "react";
+//import { getRedirectResult } from "firebase/auth";
+import Button from "../../components/button/button.component";
 
 import {
+  // auth,
   signInWithGooglePopup,
-  signInWithGoogleRedirect,
+  // signInWithGoogleRedirect,
   createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase.utils";
 
 const SignIn = () => {
+  // useEffect(() => {
+  //   const fetched_result = async () => {
+  //     const response = await getRedirectResult(auth);
+  //     console.log(response);
+  //     if (response) {
+  //       const authResponse = await createUserDocumentFromAuth(response.user);
+  //     }
+  //   };
+  //   fetched_result();
+  // }, []);
+
   const logGoogleUser = async () => {
     const { user } = await signInWithGooglePopup();
     console.log(user);
     createUserDocumentFromAuth(user);
   };
 
-  // const logGoogleUserRedirect = async () => {
-  //   const redirectResponse = await signInWithGoogleRedirect();
-  //   console.log(redirectResponse);
-  // };
-
   return (
     <div>
-      <p> Signin </p>
-      <button onClick={logGoogleUser}>SIgn In with Google </button>
-      {/* //<button onClick={logGoogleUserRedirect}>
-        SIgn In with Google Redirect
-      </button> */}
+      <button onClick={logGoogleUser}>Sign In with Google </button>
+      {/* <button onClick={signInWithGoogleRedirect}>Sign in with Redirect </button> */}
       <SignUpForm />
+      <Button button_type="inverted" type="submit">
+        Sign Up
+      </Button>
     </div>
   );
 };
