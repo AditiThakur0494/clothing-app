@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import HomePage from "./routes/homepage/homepage.component";
 import { Route, Routes } from "react-router-dom";
 import Navigation from "./routes/navigation/navigation.component";
-import SignIn from "./routes/sign-in/sign-in.component";
+import Authentication from "./routes/authentication/authentication.component";
 
 const Shop = () => {
   return (
@@ -28,7 +28,7 @@ const App = () => {
           <Route index element={<HomePage />} />
           <Route path="shop" element={<Shop />} />
           <Route path="about" element={<About />} />
-          <Route path="SignIn" element={<SignIn />} />
+          <Route path="SignIn" element={<Authentication />} />
         </Route>
       </Fragment>
     </Routes>
