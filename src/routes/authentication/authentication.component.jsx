@@ -1,6 +1,6 @@
 //import { doc } from "firebase/firestore";
 import SignUpForm from "../../components/sign-up-form/sign-up.component";
-import Button from "../../components/button/button.component";
+//import Button from "../../components/button/button.component";
 import SignIn from "../../components/sign-in/sign-in.component";
 import "./authentication.styles.scss";
 

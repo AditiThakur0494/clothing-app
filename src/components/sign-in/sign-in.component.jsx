@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   createUserDocumentFromAuth,
   signInWithGooglePopup,
@@ -8,6 +8,7 @@ import {
 import FormInput from "../Form-Input/form-input.component";
 import Button from "../button/button.component";
 import "./sign-in.styles.scss";
+import { UserContext } from "../../context/user.context";
 
 const defaultFormFields = {
   email: "",
@@ -15,31 +16,34 @@ const defaultFormFields = {
 };
 
 const SignIn = () => {
+  //console.log("here sign in");
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
+  const { setCurrentUser } = useContext(UserContext);
+
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
 
   const handleSubmit = async (event) => {
-    console.log("here");
     event.preventDefault();
     try {
-      const response = await signInUserWithEmailAndPassword(email, password);
+      const { user } = await signInUserWithEmailAndPassword(email, password);
+      setCurrentUser(user);
 
       resetFormFields();
     } catch (err) {
       console.log(err);
-      // switch (err.code) {
-      //   case "auth/invalid-credential":
-      //     alert("Password incorrect");
-      //     break;
-      //   case "auth/user-not-found":
-      //     alert("no user associated with this");
-      //     break;
-      //   default:
-      //     console.error(err.code, err.message);
-      //}
+      switch (err.code) {
+        case "auth/invalid-credential":
+          alert("Password incorrect");
+          break;
+        case "auth/user-not-found":
+          alert("no user associated with this");
+          break;
+        default:
+          console.error(err.code, err.message);
+      }
     }
   };
   const signInWithGoogle = async () => {
