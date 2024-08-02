@@ -6,8 +6,8 @@ import {
 } from "../../utils/firebase/firebase.utils";
 
 import FormInput from "../Form-Input/form-input.component";
-import Button from "../button/button.component";
-import "./sign-in.styles.scss";
+import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
+import { ButtonsContainer, SignInContainer, Heading2 } from "./sign-in.styles";
 import { UserContext } from "../../context/user.context";
 
 const defaultFormFields = {
@@ -47,9 +47,14 @@ const SignIn = () => {
     }
   };
   const signInWithGoogle = async () => {
-    const { user } = await signInWithGooglePopup();
-    console.log(user);
-    await createUserDocumentFromAuth(user);
+    try {
+      const { user } = await signInWithGooglePopup();
+      await createUserDocumentFromAuth(user);
+      setCurrentUser(user);
+      window.close(); // This should work if the popup window is in the same origin
+    } catch (err) {
+      console.error("Error during Google sign-in", err);
+    }
   };
 
   const handleChange = (event) => {
@@ -59,8 +64,8 @@ const SignIn = () => {
   };
 
   return (
-    <div className="sign-in-container">
-      <h2>Already have an account </h2>
+    <SignInContainer>
+      <Heading2>Already have an account </Heading2>
       <span>Sign In with your email and password </span>
       <form onSubmit={handleSubmit}>
         <FormInput
@@ -79,16 +84,20 @@ const SignIn = () => {
           name="password"
           value={password}
         />
-        <div className="buttons-container">
-          <Button button_type="inverted" type="submit">
+        <ButtonsContainer>
+          <Button button_type={BUTTON_TYPE_CLASSES.inverted} type="submit">
             Sign-in
           </Button>
-          <Button type="button" button_type="google" onClick={signInWithGoogle}>
+          <Button
+            type="button"
+            button_type={BUTTON_TYPE_CLASSES.google}
+            onClick={signInWithGoogle}
+          >
             Google Sign In
           </Button>
-        </div>
+        </ButtonsContainer>
       </form>
-    </div>
+    </SignInContainer>
   );
 };
 

@@ -2,7 +2,7 @@
 import SignUpForm from "../../components/sign-up-form/sign-up.component";
 //import Button from "../../components/button/button.component";
 import SignIn from "../../components/sign-in/sign-in.component";
-import "./authentication.styles.scss";
+import { AuthenticationContainer } from "./authentication.styles";
 
 const Authentication = () => {
   // useEffect(() => {
@@ -17,11 +17,11 @@ const Authentication = () => {
   // }, []);
 
   return (
-    <div className="authentication-container">
+    <AuthenticationContainer>
       <SignIn />
       {/* <button onClick={signInWithGoogleRedirect}>Sign in with Redirect </button> */}
       <SignUpForm />
-    </div>
+    </AuthenticationContainer>
   );
 };
 

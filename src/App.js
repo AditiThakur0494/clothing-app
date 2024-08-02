@@ -20,7 +20,7 @@ const App = () => {
       <Fragment>
         <Route path="/" element={<Navigation />}>
           <Route index element={<HomePage />} />
-          <Route path="shop" element={<Shop />} />
+          <Route path="shop/*" element={<Shop />} />
           <Route path="about" element={<About />} />
           <Route path="SignIn" element={<Authentication />} />
           <Route path="checkout" element={<Checkout />} />
